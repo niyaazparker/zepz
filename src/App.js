@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
@@ -81,7 +82,7 @@ const App = () => {
       </div>
         <div className='row mt-4'>
         {currentUsers.map((user) => (
-          <div className='col-lg-4 col-md-6 col-sm-12 col-12 mb-4'>
+          <div className='col-lg-4 col-md-6 col-sm-12 col-12 mb-4' key={user.user_id}>
           <div className="card p-4" key={user.user_id}>
             <div className="image d-flex flex-column justify-content-center align-items-center">
               <img src={user.profile_image} alt={user.display_name} height="100" width="100" />
@@ -89,18 +90,18 @@ const App = () => {
             <span className='name mt-3 text-center'>{user.display_name}</span>
             <div className='gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center'>
                 <button
-                  className={`btn ${isUserFollowed(user.user_id) ? 'btn-success' : 'btn-primary'} ml-auto`}
+                  className={`btn rounded ${isUserFollowed(user.user_id) ? 'btn-success' : 'btn-primary'} ml-auto`}
                   onClick={() => handleFollowUser(user.user_id)}
                 >
                   {isUserFollowed(user.user_id) ? 'Unfollow' : 'Follow'}
                 </button>
                 {!isUserBlocked(user.user_id) && (
-                  <button className="btn btn-danger ml-2" onClick={() => handleBlockUser(user.user_id)}>
+                  <button className="btn btn-danger ml-2 rounded" onClick={() => handleBlockUser(user.user_id)}>
                     Block
                   </button>
                 )}
                 {isUserBlocked(user.user_id) && (
-                  <button className="btn btn-secondary ml-2">
+                  <button className="btn btn-secondary ml-2 rounded">
                     Blocked
                   </button>
                 )}

@@ -1,0 +1,27 @@
+body {
+    background: #fefefe;
+}
+
+.btn {
+    border-radius: 50%
+  }
+
+.card {
+    border: 1px solid #e3e3e3;
+    cursor: pointer;
+    transition: all 0.5s;
+    .image img {
+        transition: all 0.5s;
+        border-radius: 100px;
+        border: 1px solid #e3e3e3;
+      }
+      &:hover .image img {
+        transform: scale(1.3)
+      }
+      .name {
+        font-size: 22px;
+        font-weight: bold
+      }
+  }
+  
+  
