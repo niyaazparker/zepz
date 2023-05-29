@@ -1,10 +1,18 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Zepz Project
 
-## Available Scripts
+Fetch a list of StackOverflow users and display the list on the screen using React Js
 
-In the project directory, you can run:
+# Time taken 
+
+3.5 hours
+
+# Clone repo 
+
+https://github.com/niyaazparker/zepz.
+
+### `Run proxy in seperate terminal to avoid Cross-Origin Resource Sharing policy issue enforced by web browsers`
+node proxy.js
 
 ### `npm start`
 
@@ -12,59 +20,51 @@ Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## `Error-encountered` 
 
-### `npm run build`
+Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remote resource at http://api.stackexchange.com/2.2/users?pagesize=20&order=desc&sort=reputation&site=stackoverflow. (Reason: CORS header ‘Access-Control-Allow-Origin’ missing). Status code: 301
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The issue was related to the Cross-Origin Resource Sharing policy enforced by web browsers. This happens when a web application running on one domain tries to make a request to another domain, and the server of the target domain does not include the necessary CORS headers to allow the request.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## `Solution`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Use a proxy server , I setup a simple server-side proxy to make the API request on behalf of the React app. This way, the request will be made from my own domain, avoiding the CORS restrictions. Here's an example using Express.js
+-	I installed cors and express packages.
+-	Created a proxy.js file in the root with the necessary code.
+-	Updated my code in app.js file to to make the API request to the proxy server instead.
+-	Ran the proxy server in a separate terminal with the line (node proxy.js)
+-	Restarted my application so that the requests will now be made to the proxy server running on my local which will forward them to stack exchange API.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## `What was added`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Auto search :** I added a new state variable **searchQuery** to store the search input value. 
+The **handleSearch** function is called whenever the input value changes, updating the **searchQuery** state accordingly.
+The **filteredUsers** variable is to store the filtered user list. It filters the users array based on whether the **display_name** includes the search query.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**Paging:** I added some new state variables: **currentPage** and **usersPerPage**. The **currentPage** state keeps track of the currently selected page, and **usersPerPage** specifies the number of users to display per page.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+You calculate the **indexOfLastUser** and **indexOfFirstUser** to determine the range of users to display based on the current page and **usersPerPage**.
+The **paginate** function is used to handle page changes. It sets the **currentPage** state to the selected page number.
 
-## Learn More
+Lastly, I added a navigation component at the bottom, displaying pagination buttons based on the total number of pages required.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Now, you can navigate through the list of users using the pagination buttons. The number of users displayed per page is determined by the **usersPerPage** state variable.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Expand/collapse:** I added a new variable **expandedUser** to keep track of the currently expanded user. When a user clicks on a item, the **handleExpand** function is called with the **user_id** as the argument. If the clicked user is the currently expanded user, it collapses the item by setting **expandedUser** to null. If the clicked user is not expanded, it sets the **user_id** as the new expanded user.
 
-### Code Splitting
+**Fontaweome Library included:**
+npm install @fortawesome/fontawesome-svg-core \
+            @fortawesome/free-solid-svg-icons \
+            @fortawesome/react-fontawesome
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+**Toggled follow button text:** I modified the **handleFollowUser** function.
+**Removed disabled attribute from blocked button when the follow button is clicked:** Modified the **handleFollowUser** function.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## `Left out`
 
-### Making a Progressive Web App
+**Unit tests** : I am still new to unit testing and have taken up a course on working through tests, With that said i am a fast learner and would grasp the process quickly if working with on daily basis.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

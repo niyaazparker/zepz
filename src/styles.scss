@@ -5,9 +5,39 @@ body {
 .btn {
     border-radius: 50%
   }
+  .masthead {
+    padding: 3rem 0 0;
+    position: relative;
+    background-color: #dd3d31;
+    background-image: url(https://startbootstrap.com/assets/img/overlay.svg), linear-gradient(45deg, #dd3d31 0%, #d22f23 100%);
+    background-size: cover;
+    z-index: 0;
+    h1 {
+        color: #fff;
+        font-weight: 700;
+        font-size: 2rem;
+        line-height: 1.1;
+        z-index: 1
+    }
+}
+
+input[type=text] {
+    outline: none;
+    box-shadow: none;
+    border-radius: 0;
+    height: 50px;
+    top: 25px;
+    position: relative;
+    &:focus {
+        border-color: #dd3d31;
+        box-shadow: none;
+        outline: none;
+    }
+}
 
 .card {
     border: 1px solid #e3e3e3;
+    border-radius: 0;
     cursor: pointer;
     transition: all 0.5s;
     .image img {
